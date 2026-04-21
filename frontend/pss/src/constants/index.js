@@ -1,6 +1,7 @@
-export const API_BASE_URL = 'http://localhost:8000/api'
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api'
 
 export const REPORT_TYPES = ['Blood Test', 'Urine Test', 'Lipid Panel', 'Custom']
+export const REPORT_UNITS = ['mg/dL', 'g/dL', 'g/L', 'mmol/L', 'IU/L', 'ng/mL', 'pg/mL', 'cells/uL', '%']
 export const GENDERS = ['Male', 'Female', 'Other']
 export const STATUSES = ['Normal', 'Abnormal', 'Pending']
 

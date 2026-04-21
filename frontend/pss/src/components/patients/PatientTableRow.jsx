@@ -28,7 +28,7 @@ function PatientTableRow({ patient, onDelete, index }) {
           <div className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-50 text-xs font-semibold text-brand-500">
             {firstLetter}
           </div>
-          <p className="text-sm font-medium text-text-primary">{patient.name}</p>
+          <p className="truncate text-sm font-medium text-text-primary" title={patient.name}>{patient.name}</p>
         </div>
       </td>
 

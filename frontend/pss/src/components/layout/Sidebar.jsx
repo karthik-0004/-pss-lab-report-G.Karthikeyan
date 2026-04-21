@@ -12,6 +12,7 @@ const menuItems = [
 
 function Sidebar() {
   const location = useLocation()
+  const isCollapsed = false
   const { data: dashboardStats } = useQuery({
     queryKey: ['dashboard'],
     queryFn: getDashboardStats,
@@ -54,7 +55,7 @@ function Sidebar() {
                 key={item.to}
                 to={item.to}
                 className={clsx(
-                  'transition-default relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium',
+                  'group transition-default relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium',
                   isActive
                     ? 'border-l-2 border-brand-500 bg-brand-50 pl-[10px] text-brand-600'
                     : 'text-text-secondary hover:bg-surface-tertiary hover:text-text-primary',
@@ -65,6 +66,12 @@ function Sidebar() {
                 {item.to === '/reports' && abnormalCount > 0 ? (
                   <span className="ml-auto inline-flex min-w-[18px] animate-pulse items-center justify-center rounded-full bg-danger px-1.5 py-0.5 text-xs text-white">
                     {abnormalCount}
+                  </span>
+                ) : null}
+
+                {isCollapsed ? (
+                  <span className="pointer-events-none absolute left-[calc(var(--sidebar-width)+8px)] z-50 hidden rounded-lg bg-surface px-3 py-1.5 text-sm text-text-primary shadow-dropdown group-hover:block">
+                    {item.label}
                   </span>
                 ) : null}
               </NavLink>

@@ -81,7 +81,7 @@ function ReportsPage() {
   const hasActiveFilters = Object.values(filters).some((value) => String(value || '').trim() !== '')
 
   return (
-    <div className="space-y-4">
+    <div className="animate-fadeIn space-y-4">
       {isFetching && !isLoading ? <div className="h-0.5 animate-[loadingBar_0.8s_ease-in-out_infinite] rounded bg-brand-500" /> : null}
 
       {isError ? (

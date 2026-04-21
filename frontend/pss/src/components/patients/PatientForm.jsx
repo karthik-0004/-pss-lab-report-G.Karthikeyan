@@ -50,6 +50,7 @@ function PatientForm({
   onCancel,
   isLoading,
   submitLabel = 'Save Patient',
+  loadingLabel = 'Saving...',
 }) {
   const [values, setValues] = useState({
     ...defaultValues,
@@ -202,7 +203,7 @@ function PatientForm({
           className="transition-default inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isLoading ? <LoadingSpinner size="sm" /> : null}
-          {submitLabel}
+          {isLoading ? loadingLabel : submitLabel}
         </button>
       </div>
     </form>

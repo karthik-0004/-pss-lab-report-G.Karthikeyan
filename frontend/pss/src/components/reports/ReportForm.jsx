@@ -1,6 +1,6 @@
 import { FileText, Upload, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
-import { REPORT_TYPES } from '../../constants'
+import { REPORT_TYPES, REPORT_UNITS } from '../../constants'
 import StatusBadge from '../ui/StatusBadge'
 import LoadingSpinner from '../ui/LoadingSpinner'
 
@@ -51,10 +51,11 @@ function validateField(field, values) {
   }
   if (field === 'unit' && !values.unit.trim()) return 'Unit is required'
   if (field === 'reference_min') {
-    if (values.reference_min === '' || Number.isNaN(min) || min < 0) return 'Reference Min must be a valid positive number'
+    if (values.reference_min === '' || Number.isNaN(min) || min < 0) return 'Reference range values must be positive numbers'
   }
   if (field === 'reference_max') {
-    if (values.reference_max === '' || Number.isNaN(max)) return 'Reference Max is required'
+    if (values.reference_max === '' || Number.isNaN(max) || max < 0) return 'Reference range values must be positive numbers'
+    if (!Number.isNaN(min) && max === min) return 'Min and Max cannot be the same value'
     if (!Number.isNaN(min) && max <= min) return 'Max must be greater than Min'
   }
 
@@ -71,7 +72,7 @@ function validateField(field, values) {
   return ''
 }
 
-function ReportForm({ initialValues, onSubmit, onCancel, isLoading, submitLabel }) {
+function ReportForm({ initialValues, onSubmit, onCancel, isLoading, submitLabel, loadingLabel = 'Uploading...' }) {
   const [values, setValues] = useState({ ...defaultValues, ...initialValues, file: null })
   const [errors, setErrors] = useState({})
   const [isDragging, setIsDragging] = useState(false)
@@ -140,8 +141,12 @@ function ReportForm({ initialValues, onSubmit, onCancel, isLoading, submitLabel 
   const handleFileSelect = (file) => {
     if (!file) return
     const allowed = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png']
+    if (file.size > 10 * 1024 * 1024) {
+      setErrors((prev) => ({ ...prev, file: 'File size must be less than 10MB' }))
+      return
+    }
     if (!allowed.includes(file.type)) {
-      setErrors((prev) => ({ ...prev, file: 'Only PDF, JPG, JPEG, PNG files are allowed' }))
+      setErrors((prev) => ({ ...prev, file: 'Only PDF, JPG, and PNG files are supported' }))
       return
     }
     setErrors((prev) => {
@@ -214,15 +219,20 @@ function ReportForm({ initialValues, onSubmit, onCancel, isLoading, submitLabel 
 
         <div>
           <label className="mb-1 block text-sm font-medium text-text-primary">Unit</label>
-          <input
-            type="text"
-            placeholder="e.g. mg/dL, g/L, mmol/L"
+          <select
             value={values.unit}
             onChange={(event) => setField('unit', event.target.value)}
             onBlur={() => handleBlur('unit')}
             disabled={isLoading}
             className={inputClass('unit')}
-          />
+          >
+            <option value="">Select Unit</option>
+            {REPORT_UNITS.map((unit) => (
+              <option key={unit} value={unit}>
+                {unit}
+              </option>
+            ))}
+          </select>
           {errors.unit ? <p className="mt-1 animate-[fadeIn_0.2s_ease] text-xs text-danger">{errors.unit}</p> : null}
         </div>
 
@@ -349,7 +359,7 @@ function ReportForm({ initialValues, onSubmit, onCancel, isLoading, submitLabel 
           className="transition-default inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isLoading ? <LoadingSpinner size="sm" /> : null}
-          {submitLabel}
+          {isLoading ? loadingLabel : submitLabel}
         </button>
       </div>
     </form>

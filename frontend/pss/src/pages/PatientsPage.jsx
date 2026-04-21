@@ -48,7 +48,7 @@ function PatientsPage() {
   const isDebouncing = searchTerm !== debouncedSearch
 
   return (
-    <div className="space-y-5">
+    <div className="animate-fadeIn space-y-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-2xl font-bold text-text-primary">Patients</h2>
@@ -136,7 +136,18 @@ function PatientsPage() {
           </div>
         ) : null}
 
-        {!isLoading && !isError && data.length === 0 ? (
+        {!isLoading && !isError && data.length === 0 && debouncedSearch ? (
+          <div className="p-8">
+            <EmptyState
+              icon={Users}
+              title={`No patients found for '${debouncedSearch}'`}
+              description="Try a different name or patient ID"
+              action={{ label: 'Clear search', onClick: () => setSearchTerm('') }}
+            />
+          </div>
+        ) : null}
+
+        {!isLoading && !isError && data.length === 0 && !debouncedSearch ? (
           <div className="p-8">
             <EmptyState
               icon={Users}

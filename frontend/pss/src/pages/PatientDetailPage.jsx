@@ -59,7 +59,7 @@ function PatientDetailPage() {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="animate-fadeIn space-y-4">
       {isError && error?.status !== 404 ? (
         <div className="flex flex-col gap-3 rounded-xl border border-danger bg-danger-light p-4 text-danger sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2">

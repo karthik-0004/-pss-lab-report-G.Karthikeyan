@@ -127,7 +127,7 @@ function GlobalReportsTable({
                           onClick={() => navigate(`/patients/${report.patient?.patient_id}`)}
                           className="text-left"
                         >
-                          <p className="text-sm font-medium text-text-primary transition-default hover:text-brand-600 hover:underline">
+                          <p className="max-w-[180px] truncate text-sm font-medium text-text-primary transition-default hover:text-brand-600 hover:underline" title={report.patient?.name || '-'}>
                             {report.patient?.name || '-'}
                           </p>
                           <span className="inline-flex rounded-md border border-border bg-surface-tertiary px-2 py-0.5 font-mono text-xs text-text-secondary">

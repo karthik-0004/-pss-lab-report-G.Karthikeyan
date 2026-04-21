@@ -35,6 +35,14 @@ function AddPatientModal({ isOpen, onClose, onSuccess, patient = null }) {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [onClose, shouldRender])
 
+  useEffect(() => {
+    if (!shouldRender) return
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [shouldRender])
+
   const handleSubmit = async (payload) => {
     setIsLoading(true)
     setErrorMessage('')
@@ -71,7 +79,7 @@ function AddPatientModal({ isOpen, onClose, onSuccess, patient = null }) {
       />
 
       <div
-        className={`relative w-full max-w-lg rounded-2xl bg-surface p-6 shadow-dropdown transition-all duration-200 ${
+        className={`animate-scaleIn relative w-full max-w-lg rounded-2xl bg-surface p-6 shadow-dropdown transition-all duration-200 ${
           isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
         }`}
       >
@@ -112,6 +120,7 @@ function AddPatientModal({ isOpen, onClose, onSuccess, patient = null }) {
         <PatientForm
           initialValues={patient || undefined}
           submitLabel={isEditMode ? 'Save Changes' : 'Add Patient'}
+          loadingLabel="Saving..."
           onSubmit={handleSubmit}
           onCancel={onClose}
           isLoading={isLoading}

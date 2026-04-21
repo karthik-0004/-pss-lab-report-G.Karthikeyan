@@ -1,11 +1,11 @@
 import Header from './Header'
 import Sidebar from './Sidebar'
 
-function MainLayout({ children }) {
+function MainLayout({ children, breadcrumb }) {
   return (
     <div className="flex">
       <Sidebar />
-      <Header />
+      <Header breadcrumb={breadcrumb} />
       <main
         className="min-h-screen w-full bg-surface-secondary p-6"
         style={{

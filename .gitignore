@@ -12,6 +12,8 @@ env/
 
 # Environment variables
 .env
+.env.*
+!.env.example
 
 # FastAPI / Uvicorn
 *.log
@@ -19,6 +21,7 @@ env/
 # SQLite database
 *.db
 *.sqlite3
+backend/fastapi/uploads/
 
 # IDE files
 .vscode/

@@ -37,6 +37,14 @@ function ReportModal({ isOpen, onClose, onSuccess, patientId, report }) {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [onClose, shouldRender])
 
+  useEffect(() => {
+    if (!shouldRender) return
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [shouldRender])
+
   const initialValues = useMemo(() => {
     if (!report) return undefined
     return {
@@ -98,7 +106,7 @@ function ReportModal({ isOpen, onClose, onSuccess, patientId, report }) {
       />
 
       <div
-        className={`relative w-full max-w-2xl rounded-2xl bg-surface p-6 shadow-dropdown transition-all duration-200 ${
+        className={`animate-scaleIn relative w-full max-w-2xl rounded-2xl bg-surface p-6 shadow-dropdown transition-all duration-200 ${
           isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
         }`}
       >
@@ -138,7 +146,8 @@ function ReportModal({ isOpen, onClose, onSuccess, patientId, report }) {
           onSubmit={handleSubmit}
           onCancel={onClose}
           isLoading={isLoading}
-          submitLabel={isEditMode ? 'Save Changes' : 'Add Report'}
+          submitLabel={isEditMode ? 'Save Changes' : 'Save Report'}
+          loadingLabel="Saving..."
         />
       </div>
     </div>

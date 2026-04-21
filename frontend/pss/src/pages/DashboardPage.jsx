@@ -31,7 +31,7 @@ function DashboardPage() {
   }
 
   return (
-    <div className="space-y-5">
+    <div className="animate-fadeIn space-y-5">
       {isError ? (
         <div className="flex flex-col gap-3 rounded-xl border border-danger bg-danger-light p-4 text-danger sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-2">
@@ -72,38 +72,46 @@ function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatsCard
-          title="Total Patients"
-          value={stats?.total_patients ?? 0}
-          icon={Users}
-          iconBg="bg-brand-50"
-          iconColor="text-brand-500"
-          loading={isLoading}
-        />
-        <StatsCard
-          title="Total Reports"
-          value={stats?.total_reports ?? 0}
-          icon={FileText}
-          iconBg="bg-blue-50"
-          iconColor="text-blue-500"
-          loading={isLoading}
-        />
-        <StatsCard
-          title="Abnormal Reports"
-          value={stats?.abnormal_reports ?? 0}
-          icon={AlertTriangle}
-          iconBg="bg-danger-light"
-          iconColor="text-danger"
-          loading={isLoading}
-        />
-        <StatsCard
-          title="Reports Today"
-          value={stats?.reports_today ?? 0}
-          icon={Calendar}
-          iconBg="bg-success-light"
-          iconColor="text-success"
-          loading={isLoading}
-        />
+        <div className="animate-fadeIn" style={{ animationDelay: '0ms' }}>
+          <StatsCard
+            title="Total Patients"
+            value={stats?.total_patients ?? 0}
+            icon={Users}
+            iconBg="bg-brand-50"
+            iconColor="text-brand-500"
+            loading={isLoading}
+          />
+        </div>
+        <div className="animate-fadeIn" style={{ animationDelay: '60ms' }}>
+          <StatsCard
+            title="Total Reports"
+            value={stats?.total_reports ?? 0}
+            icon={FileText}
+            iconBg="bg-blue-50"
+            iconColor="text-blue-500"
+            loading={isLoading}
+          />
+        </div>
+        <div className="animate-fadeIn" style={{ animationDelay: '120ms' }}>
+          <StatsCard
+            title="Abnormal Reports"
+            value={stats?.abnormal_reports ?? 0}
+            icon={AlertTriangle}
+            iconBg="bg-danger-light"
+            iconColor="text-danger"
+            loading={isLoading}
+          />
+        </div>
+        <div className="animate-fadeIn" style={{ animationDelay: '180ms' }}>
+          <StatsCard
+            title="Reports Today"
+            value={stats?.reports_today ?? 0}
+            icon={Calendar}
+            iconBg="bg-success-light"
+            iconColor="text-success"
+            loading={isLoading}
+          />
+        </div>
       </div>
 
       <RecentReportsTable

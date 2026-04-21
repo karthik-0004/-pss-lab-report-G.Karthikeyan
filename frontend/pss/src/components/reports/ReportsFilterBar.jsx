@@ -159,7 +159,7 @@ function ReportsFilterBar({ filters, onFilterChange, onClearAll, resultCount, is
           {chips.map((chip) => (
             <span
               key={chip.key}
-              className="inline-flex animate-[chipIn_0.18s_ease] items-center gap-1 rounded-full border border-border bg-surface-tertiary px-3 py-1 text-xs font-medium text-text-secondary"
+              className="animate-slideInRight inline-flex items-center gap-1 rounded-full border border-border bg-surface-tertiary px-3 py-1 text-xs font-medium text-text-secondary"
             >
               {chip.label}
               <button

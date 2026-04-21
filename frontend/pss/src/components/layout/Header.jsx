@@ -1,5 +1,7 @@
 import { Bell, Search } from 'lucide-react'
 import { useLocation, useMatch } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import { getPatientById } from '../../api/patients'
 
 const PAGE_TITLES = {
   '/': 'Dashboard',
@@ -7,10 +9,17 @@ const PAGE_TITLES = {
   '/reports': 'Reports',
 }
 
-function Header() {
+function Header({ breadcrumb }) {
   const location = useLocation()
+  const patientDetailMatch = useMatch('/patients/:patientId')
   const isAddPatientRoute = Boolean(useMatch('/patients/new'))
-  const isPatientDetailRoute = Boolean(useMatch('/patients/:id') || useMatch('/patients/:patientId'))
+  const isPatientDetailRoute = Boolean(useMatch('/patients/:id') || patientDetailMatch)
+
+  const { data: patientData } = useQuery({
+    queryKey: ['patient', patientDetailMatch?.params?.patientId],
+    queryFn: () => getPatientById(patientDetailMatch?.params?.patientId),
+    enabled: Boolean(patientDetailMatch?.params?.patientId),
+  })
 
   let title = PAGE_TITLES[location.pathname] || 'PSS Lab'
   if (isAddPatientRoute) title = 'Add Patient'
@@ -25,6 +34,11 @@ function Header() {
       }}
     >
       <h1 className="text-lg font-semibold text-text-primary">{title}</h1>
+      {isPatientDetailRoute || breadcrumb ? (
+        <p className="absolute left-6 top-[38px] text-xs text-text-muted">
+          Patients / {breadcrumb?.label || patientData?.patient?.name || 'Patient'}
+        </p>
+      ) : null}
 
       <div className="flex items-center gap-2">
         <button
