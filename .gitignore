@@ -1,0 +1,49 @@
+### Python / FastAPI ###
+
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Environment variables
+.env
+
+# FastAPI / Uvicorn
+*.log
+
+# SQLite database
+*.db
+*.sqlite3
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Pytest
+.pytest_cache/
+
+# Coverage reports
+.coverage
+htmlcov/
+
+# Migrations (if you use Alembic)
+alembic/versions/*.py
+
+# mypy
+.mypy_cache/
+
+# Ruff / lint caches
+.ruff_cache/
+
+# Temporary files
+*.swp
+*.swo
