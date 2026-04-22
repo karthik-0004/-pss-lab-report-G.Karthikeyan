@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { useQuery } from '@tanstack/react-query'
-import { Activity, FileText, LayoutDashboard, Users } from 'lucide-react'
+import { FileText, LayoutDashboard, Users } from 'lucide-react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { getDashboardStats } from '../../api/reports'
 
@@ -28,8 +28,8 @@ function Sidebar() {
       <div className="flex h-full flex-col px-4 py-5">
         <div className="mb-8 border-b border-border pb-5">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50">
-              <Activity className="h-5 w-5 text-brand-500" />
+            <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl bg-brand-50">
+              <img src="/logo.webp" alt="PSS Lab logo" className="h-full w-full object-cover" />
             </div>
             <div>
               <p className="text-base font-bold text-text-primary">PSS Lab</p>
